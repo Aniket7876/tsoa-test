@@ -2,9 +2,12 @@ import express from 'express';
 import { RegisterRoutes } from './routes/routes';
 import swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from '../dist/swagger.json';
+import {connectDatabase} from './config/database';
 
 const app = express();
 app.use(express.json());
+
+const port =3000
 
 // Swagger setup
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
@@ -12,9 +15,24 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 // TSOA routes
 RegisterRoutes(app);
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
-});
+async function startServer() {
+  try {
+    // Attempt to connect to the database and log the message
+    const dbConnectionMessage = await connectDatabase();
+    console.log(dbConnectionMessage); // Log the result from the database connection
+
+    // Start the server after the database is connected
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (error) {
+    console.error('Failed to start the server:', error);
+  }
+}
+
+startServer();
+
+
 
 
 // import express from 'express';

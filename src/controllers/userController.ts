@@ -9,7 +9,7 @@ export class UserController extends Controller {
 
   @Get('/')
   
-  
+  @SuccessResponse(200, 'Fetched users successfully')
   public async getUsers(): Promise<User[]> {
     try {
       const result = await pool.query('SELECT * FROM users');
@@ -20,7 +20,7 @@ export class UserController extends Controller {
       throw new Error('Error fetching users');
     }
   }
-  @SuccessResponse(200, 'Fetched users successfully')
+ 
 
   // Create a new user
   @Security('jwt', ['admin'])
