@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",  // Ensures compiled files go to dist/
+    "rootDir": "./src",  // The source code is under src/
+    "module": "commonjs",
+    "target": "ES2021",
+    "lib": ["ES2021"],
+    "strict": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
